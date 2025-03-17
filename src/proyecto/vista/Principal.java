@@ -5,6 +5,7 @@
 package proyecto.vista;
 
 import java.awt.*;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -18,6 +19,8 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        ImageIcon icono = new ImageIcon("src/proyecto/iconos/Ambulancia.png");
+        this.setIconImage(icono.getImage());
     }
 
     /**
@@ -34,17 +37,26 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
+        jLabelTitulo = new javax.swing.JLabel();
+        jLabelBgTitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jBtnAtencionPaciente = new javax.swing.JButton();
+        jBtnRecepPacientes = new javax.swing.JButton();
+        jBtnOrdenarZonaPrio = new javax.swing.JButton();
+        jBtnMoverPacientePrio = new javax.swing.JButton();
+        jBtnExcepcionPaciente = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sala de emergencias");
+        setBackground(new java.awt.Color(56, 142, 60));
         setLocation(new java.awt.Point(0, 0));
-        setPreferredSize(new java.awt.Dimension(900, 600));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setBackground(new java.awt.Color(255, 255, 255));
+        jTable1.setBackground(new java.awt.Color(245, 245, 245));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
@@ -100,38 +112,87 @@ public class Principal extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 700, 500));
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jLabelTitulo.setFont(new java.awt.Font("Arial Black", 2, 48)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(21, 101, 192));
+        jLabelTitulo.setText("Sala de emergencias");
+        jPanel1.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 560, 70));
+
+        jLabelBgTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/iconos/Principal.png"))); // NOI18N
+        jPanel1.add(jLabelBgTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 0, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 700, 100));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(245, 245, 245));
+
+        jBtnAtencionPaciente.setText("<html>Atencion<br>Paciente</html>");
+
+        jBtnRecepPacientes.setText("<html>Recepcion de<br>pacientes</html>");
+        jBtnRecepPacientes.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jBtnRecepPacientesActionPerformed(evt);
+            }
+        });
+
+        jBtnOrdenarZonaPrio.setLabel("<html>Ordenar por zona<br>por prioridad</html>");
+
+        jBtnMoverPacientePrio.setText("<html>Mover paciente<br>por prioridad</html>");
+
+        jBtnExcepcionPaciente.setText("<html>Excepcion de<br>Pacientes</html>");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/iconos/Ambulancia.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtnRecepPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnOrdenarZonaPrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnExcepcionPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnMoverPacientePrio, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnAtencionPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(54, 54, 54))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(jBtnRecepPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jBtnAtencionPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jBtnMoverPacientePrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jBtnOrdenarZonaPrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jBtnExcepcionPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnRecepPacientesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRecepPacientesActionPerformed
+    {//GEN-HEADEREND:event_jBtnRecepPacientesActionPerformed
+        FormularioPaciente fPaciente = new FormularioPaciente(this, rootPaneCheckingEnabled);
+        fPaciente.setVisible(true);
+    }//GEN-LAST:event_jBtnRecepPacientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,6 +228,14 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnAtencionPaciente;
+    private javax.swing.JButton jBtnExcepcionPaciente;
+    private javax.swing.JButton jBtnMoverPacientePrio;
+    private javax.swing.JButton jBtnOrdenarZonaPrio;
+    private javax.swing.JButton jBtnRecepPacientes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelBgTitulo;
+    private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
