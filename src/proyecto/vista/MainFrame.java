@@ -8,20 +8,31 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import proyecto.modelo.*;
+import proyecto.controlador.PacientController;
 
 /**
  *
  * @author Joabp
  */
-public class Principal extends javax.swing.JFrame
+public class MainFrame extends javax.swing.JFrame
 {
 
     private static ListaSL lsl;
 
+    public static ListaSL getLsl()
+    {
+        return lsl;
+    }
+
+    public static void setLsl(ListaSL aLsl)
+    {
+        lsl = aLsl;
+    }
+
     /**
      * Creates new form Principal
      */
-    public Principal()
+    public MainFrame()
     {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -33,6 +44,7 @@ public class Principal extends javax.swing.JFrame
 
     private void updateTable()
     {
+        System.out.println("updateTable() llamado");
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0);
         Nodo nodoLista = lsl.getR();
@@ -179,6 +191,13 @@ public class Principal extends javax.swing.JFrame
         jPanel2.setBackground(new java.awt.Color(245, 245, 245));
 
         jBtnAtencionPaciente.setText("<html>Atencion<br>Paciente</html>");
+        jBtnAtencionPaciente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jBtnAtencionPacienteActionPerformed(evt);
+            }
+        });
 
         jBtnRecepPacientes.setText("<html>Recepcion de<br>pacientes</html>");
         jBtnRecepPacientes.addActionListener(new java.awt.event.ActionListener()
@@ -192,6 +211,13 @@ public class Principal extends javax.swing.JFrame
         jBtnOrdenarZonaPrio.setLabel("<html>Ordenar por zona<br>por prioridad</html>");
 
         jBtnMoverPacientePrio.setText("<html>Mover paciente<br>por prioridad</html>");
+        jBtnMoverPacientePrio.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jBtnMoverPacientePrioActionPerformed(evt);
+            }
+        });
 
         jBtnExcepcionPaciente.setText("<html>Excepcion de<br>Pacientes</html>");
 
@@ -241,7 +267,7 @@ public class Principal extends javax.swing.JFrame
 
     private void jBtnRecepPacientesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRecepPacientesActionPerformed
     {//GEN-HEADEREND:event_jBtnRecepPacientesActionPerformed
-        FormularioPaciente fPaciente = new FormularioPaciente(this, rootPaneCheckingEnabled, lsl);
+        PacientForm fPaciente = new PacientForm(this, rootPaneCheckingEnabled, lsl);
         fPaciente.setVisible(true);
         updateTable();
     }//GEN-LAST:event_jBtnRecepPacientesActionPerformed
@@ -250,6 +276,45 @@ public class Principal extends javax.swing.JFrame
     {//GEN-HEADEREND:event_formWindowClosing
         Archivo.guardar(lsl, "src/proyecto/archivo/ListaPacientes.dat");
     }//GEN-LAST:event_formWindowClosing
+
+    private void jBtnAtencionPacienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnAtencionPacienteActionPerformed
+    {//GEN-HEADEREND:event_jBtnAtencionPacienteActionPerformed
+        if (lsl.getR() != null)
+        {
+            if (PacientController.atenderPaciente(lsl))
+            {
+                JOptionPane.showMessageDialog(this, "Se ha atendido con exito al paciente");
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "No se ha podido atendender al paciente");
+            }
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "No hay pacientes por atender");
+        }
+        updateTable();
+    }//GEN-LAST:event_jBtnAtencionPacienteActionPerformed
+
+    private void jBtnMoverPacientePrioActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnMoverPacientePrioActionPerformed
+    {//GEN-HEADEREND:event_jBtnMoverPacientePrioActionPerformed
+        if (lsl.getR() != null)
+        {
+            MovePacientPriority mpp = new MovePacientPriority(this, rootPaneCheckingEnabled, lsl);
+            mpp.addWindowListener(new java.awt.event.WindowAdapter()
+            {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent)
+                {
+                    lsl = MovePacientPriority.getLsl();
+                    updateTable();
+                }
+            });
+            mpp.setVisible(true);
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "No hay pacientes existentes");
+        }
+    }//GEN-LAST:event_jBtnMoverPacientePrioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,23 +338,24 @@ public class Principal extends javax.swing.JFrame
             }
         } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() ->
         {
-            new Principal().setVisible(true);
+            new MainFrame().setVisible(true);
         });
     }
 

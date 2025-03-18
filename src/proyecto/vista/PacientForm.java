@@ -14,10 +14,10 @@ import proyecto.modelo.ListaSL;
  *
  * @author Jou
  */
-public class FormularioPaciente extends javax.swing.JDialog
+public class PacientForm extends javax.swing.JDialog
 {
 
-    private static ListaSL lsl;
+    static ListaSL lsl;
 
     /**
      * Creates new form FormularioPaciente
@@ -26,10 +26,10 @@ public class FormularioPaciente extends javax.swing.JDialog
      * @param modal
      * @param lsl
      */
-    public FormularioPaciente(java.awt.Frame parent, boolean modal, ListaSL lsl)
+    public PacientForm(java.awt.Frame parent, boolean modal, ListaSL lsl)
     {
         super(parent, modal);
-        FormularioPaciente.lsl = lsl;
+        PacientForm.lsl = lsl;
         initComponents();
         this.setLocationRelativeTo(null);
         ImageIcon icono = new ImageIcon("src/proyecto/iconos/Ambulancia.png");
@@ -43,7 +43,7 @@ public class FormularioPaciente extends javax.swing.JDialog
 
     public void setLsl(ListaSL lsl)
     {
-        FormularioPaciente.lsl = lsl;
+        PacientForm.lsl = lsl;
     }
 
     /**
@@ -70,7 +70,6 @@ public class FormularioPaciente extends javax.swing.JDialog
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Recepcion de pacientes");
-        setPreferredSize(new java.awt.Dimension(750, 400));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -244,23 +243,24 @@ public class FormularioPaciente extends javax.swing.JDialog
             }
         } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PacientForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PacientForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PacientForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PacientForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() ->
         {
-            FormularioPaciente dialog = new FormularioPaciente(new javax.swing.JFrame(), true, lsl);
+            PacientForm dialog = new PacientForm(new javax.swing.JFrame(), true, lsl);
             dialog.addWindowListener(new java.awt.event.WindowAdapter()
             {
                 @Override

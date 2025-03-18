@@ -35,37 +35,47 @@ public class ListaSL implements Serializable
         this.r = r;
     }
 
-    public boolean inserta(Nodo n)
-    {
-        if (n == null)
-        {
+    public boolean inserta(Nodo n) {
+        if (n == null) {
             System.out.println("No se puede insertar un nodo nulo.");
             return false;
-        } else
-        {
-            if (r == null)
-            {
+        } else {
+            if (r == null) {
                 r = n;
-            } else
-            {
-                if (r.getEtiqueta().compareTo(n.getEtiqueta()) > 0)
-                {
-                    n.setSiguiente(r);
-                    r = n;
-                } else
-                {
-                    Nodo aux = r;
-                    while (aux.getSiguiente() != null)
-                    {
-                        if (aux.getSiguiente().getEtiqueta().compareTo(n.getEtiqueta()) > 0)
-                        {
-                            n.setSiguiente(aux.getSiguiente());
-                            aux.setSiguiente(n);
-                            return true;
+            } else {
+                if (esNumerico(n.getEtiqueta()) && esNumerico(r.getEtiqueta())) {
+                    if (Integer.parseInt(r.getEtiqueta()) > Integer.parseInt(n.getEtiqueta())) {
+                        n.setSiguiente(r);
+                        r = n;
+                    } else {
+                        Nodo aux = r;
+                        while (aux.getSiguiente() != null) {
+                            if (esNumerico(aux.getSiguiente().getEtiqueta()) &&
+                                    Integer.parseInt(aux.getSiguiente().getEtiqueta()) > Integer.parseInt(n.getEtiqueta())) {
+                                n.setSiguiente(aux.getSiguiente());
+                                aux.setSiguiente(n);
+                                return true;
+                            }
+                            aux = aux.getSiguiente();
                         }
-                        aux = aux.getSiguiente();
+                        aux.setSiguiente(n);
                     }
-                    aux.setSiguiente(n);
+                } else {
+                    if (r.getEtiqueta().compareTo(n.getEtiqueta()) > 0) {
+                        n.setSiguiente(r);
+                        r = n;
+                    } else {
+                        Nodo aux = r;
+                        while (aux.getSiguiente() != null) {
+                            if (aux.getSiguiente().getEtiqueta().compareTo(n.getEtiqueta()) > 0) {
+                                n.setSiguiente(aux.getSiguiente());
+                                aux.setSiguiente(n);
+                                return true;
+                            }
+                            aux = aux.getSiguiente();
+                        }
+                        aux.setSiguiente(n);
+                    }
                 }
             }
             return true;
@@ -100,32 +110,75 @@ public class ListaSL implements Serializable
             System.out.println("Lista vacia");
             return null;
         }
-        if (r.getEtiqueta().compareTo(et) > 0)
-        {
-            System.out.println("Nodo no encontrado");
-            return null;
-        }
+
         Nodo eliminado = null;
-        if (r.getEtiqueta().compareTo(et) == 0)
+        if (esNumerico(et) && esNumerico(r.getEtiqueta()))
         {
-            eliminado = r;
-            r = r.getSiguiente();
-            eliminado.setSiguiente(null);
-            return eliminado;
-        }
-        Nodo aux = r;
-        while (aux.getSiguiente() != null)
-        {
-            if (aux.getSiguiente().getEtiqueta().compareTo(et) == 0)
+            if (Integer.parseInt(r.getEtiqueta()) > Integer.parseInt(et))
             {
-                eliminado = aux.getSiguiente();
-                aux.setSiguiente(eliminado.getSiguiente());
+                System.out.println("Nodo no encontrado");
+                return null;
+            }
+            if (Integer.parseInt(r.getEtiqueta()) == Integer.parseInt(et))
+            {
+                eliminado = r;
+                r = r.getSiguiente();
                 eliminado.setSiguiente(null);
                 return eliminado;
             }
-            aux = aux.getSiguiente();
+            Nodo aux = r;
+            while (aux.getSiguiente() != null)
+            {
+                if (esNumerico(aux.getSiguiente().getEtiqueta())
+                        && Integer.parseInt(aux.getSiguiente().getEtiqueta()) == Integer.parseInt(et))
+                {
+                    eliminado = aux.getSiguiente();
+                    aux.setSiguiente(eliminado.getSiguiente());
+                    eliminado.setSiguiente(null);
+                    return eliminado;
+                }
+                aux = aux.getSiguiente();
+            }
+        } else
+        {
+            if (r.getEtiqueta().compareTo(et) > 0)
+            {
+                System.out.println("Nodo no encontrado");
+                return null;
+            }
+            if (r.getEtiqueta().compareTo(et) == 0)
+            {
+                eliminado = r;
+                r = r.getSiguiente();
+                eliminado.setSiguiente(null);
+                return eliminado;
+            }
+            Nodo aux = r;
+            while (aux.getSiguiente() != null)
+            {
+                if (aux.getSiguiente().getEtiqueta().compareTo(et) == 0)
+                {
+                    eliminado = aux.getSiguiente();
+                    aux.setSiguiente(eliminado.getSiguiente());
+                    eliminado.setSiguiente(null);
+                    return eliminado;
+                }
+                aux = aux.getSiguiente();
+            }
         }
         return eliminado;
+    }
+
+    private boolean esNumerico(String cadena)
+    {
+        try
+        {
+            Integer.valueOf(cadena);
+            return true;
+        } catch (NumberFormatException e)
+        {
+            return false;
+        }
     }
 
     public Nodo buscar(String et)

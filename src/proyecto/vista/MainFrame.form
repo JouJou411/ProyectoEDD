@@ -221,6 +221,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Atencion&lt;br&gt;Paciente&lt;/html&gt;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnAtencionPacienteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBtnRecepPacientes">
           <Properties>
@@ -239,6 +242,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Mover paciente&lt;br&gt;por prioridad&lt;/html&gt;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnMoverPacientePrioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBtnExcepcionPaciente">
           <Properties>
