@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package edd;
+package proyecto.modelo;
 
 /**
  *
@@ -32,49 +32,52 @@ public class ListaSL
         this.r = r;
     }
 
-    public void inserta(Nodo n)
+    public boolean inserta(Nodo n)
     {
         if (n == null)
         {
             System.out.println("No se puede insertar un nodo nulo.");
-            return;
-        }
-
-        if (r == null)
+            return false;
+        } else
         {
-            r = n;
-            return;
-        }
-
-        if (r.getEtiqueta().compareTo(n.getEtiqueta()) > 0)
-        {
-            n.setSiguiente(r);
-            r = n;
-            return;
-        }
-
-        Nodo aux = r;
-        while (aux.getSiguiente() != null)
-        {
-            if (aux.getSiguiente().getEtiqueta().compareTo(n.getEtiqueta()) > 0)
+            if (r == null)
             {
-                n.setSiguiente(aux.getSiguiente());
-                aux.setSiguiente(n);
-                return;
+                r = n;
+            } else
+            {
+                if (r.getEtiqueta().compareTo(n.getEtiqueta()) > 0)
+                {
+                    n.setSiguiente(r);
+                    r = n;
+                } else
+                {
+                    Nodo aux = r;
+                    while (aux.getSiguiente() != null)
+                    {
+                        if (aux.getSiguiente().getEtiqueta().compareTo(n.getEtiqueta()) > 0)
+                        {
+                            n.setSiguiente(aux.getSiguiente());
+                            aux.setSiguiente(n);
+                            return true;
+                        }
+                        aux = aux.getSiguiente();
+                    }
+                    aux.setSiguiente(n);
+                }
             }
-            aux = aux.getSiguiente();
+            return true;
         }
-        aux.setSiguiente(n);
     }
 
     public String desp()
     {
         String s = "";
         Nodo aux = r;
-        while (aux != null){
+        while (aux != null)
+        {
             s += aux.getEtiqueta() + "\t";
             aux = aux.getSiguiente();
-        } 
+        }
         return s;
     }
 

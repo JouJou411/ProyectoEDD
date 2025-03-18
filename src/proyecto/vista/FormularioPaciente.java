@@ -5,6 +5,9 @@
 package proyecto.vista;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import proyecto.modelo.Validar;
+import proyecto.controlador.PacientController;
 
 /**
  *
@@ -15,6 +18,9 @@ public class FormularioPaciente extends javax.swing.JDialog
 
     /**
      * Creates new form FormularioPaciente
+     *
+     * @param parent
+     * @param modal
      */
     public FormularioPaciente(java.awt.Frame parent, boolean modal)
     {
@@ -180,7 +186,19 @@ public class FormularioPaciente extends javax.swing.JDialog
 
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnGuardarActionPerformed
     {//GEN-HEADEREND:event_jBtnGuardarActionPerformed
-        // TODO add your handling code here:
+        String text = jTextFieldNomPaciemte.getText();
+        if (Validar.isValidText(text) && !text.isBlank() && !text.isEmpty())
+        {
+            int prioridad = jComboBoxPrioridad.getSelectedIndex() + 1;
+            int zona = jComboBoxZona.getSelectedIndex() + 1;
+            PacientController pc = new PacientController();
+            pc.agregaPaciente(text, prioridad, zona);
+            this.dispose();
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "Favor de ingresar solo letras");
+            jTextFieldNomPaciemte.setText("");
+        }
     }//GEN-LAST:event_jBtnGuardarActionPerformed
 
     /**
@@ -219,21 +237,18 @@ public class FormularioPaciente extends javax.swing.JDialog
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable()
+        java.awt.EventQueue.invokeLater(() ->
         {
-            public void run()
+            FormularioPaciente dialog = new FormularioPaciente(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter()
             {
-                FormularioPaciente dialog = new FormularioPaciente(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter()
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e)
                 {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e)
-                    {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 

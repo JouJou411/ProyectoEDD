@@ -66,14 +66,14 @@ public class ArregloDinamico
             return null;
         } else
         {
-            Object eliminado = arr[arr.length-1];
+            Object eliminado = arr[arr.length - 1];
             if (arr.length == 1)
             {
                 arr = null;
             } else
             {
                 Object nvo[] = new Object[arr.length - 1];
-                System.arraycopy(arr, 0, nvo, 0, arr.length-1);
+                System.arraycopy(arr, 0, nvo, 0, arr.length - 1);
                 arr = nvo;
             }
             return eliminado;
