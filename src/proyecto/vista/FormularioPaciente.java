@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import proyecto.modelo.Validar;
 import proyecto.controlador.PacientController;
+import proyecto.modelo.ListaSL;
 
 /**
  *
@@ -16,19 +17,33 @@ import proyecto.controlador.PacientController;
 public class FormularioPaciente extends javax.swing.JDialog
 {
 
+    private static ListaSL lsl;
+
     /**
      * Creates new form FormularioPaciente
      *
      * @param parent
      * @param modal
+     * @param lsl
      */
-    public FormularioPaciente(java.awt.Frame parent, boolean modal)
+    public FormularioPaciente(java.awt.Frame parent, boolean modal, ListaSL lsl)
     {
         super(parent, modal);
+        FormularioPaciente.lsl = lsl;
         initComponents();
         this.setLocationRelativeTo(null);
         ImageIcon icono = new ImageIcon("src/proyecto/iconos/Ambulancia.png");
         this.setIconImage(icono.getImage());
+    }
+
+    public ListaSL getLsl()
+    {
+        return lsl;
+    }
+
+    public void setLsl(ListaSL lsl)
+    {
+        FormularioPaciente.lsl = lsl;
     }
 
     /**
@@ -191,9 +206,15 @@ public class FormularioPaciente extends javax.swing.JDialog
         {
             int prioridad = jComboBoxPrioridad.getSelectedIndex() + 1;
             int zona = jComboBoxZona.getSelectedIndex() + 1;
-            PacientController pc = new PacientController();
-            pc.agregaPaciente(text, prioridad, zona);
-            this.dispose();
+            if (PacientController.agregaPaciente(text, lsl, prioridad, zona))
+            {
+                JOptionPane.showMessageDialog(this, "Se ha agreado el paciente");
+                this.dispose();
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "No se pudo agregar el paciente");
+                jTextFieldNomPaciemte.setText("");
+            }
         } else
         {
             JOptionPane.showMessageDialog(this, "Favor de ingresar solo letras");
@@ -239,7 +260,7 @@ public class FormularioPaciente extends javax.swing.JDialog
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() ->
         {
-            FormularioPaciente dialog = new FormularioPaciente(new javax.swing.JFrame(), true);
+            FormularioPaciente dialog = new FormularioPaciente(new javax.swing.JFrame(), true, lsl);
             dialog.addWindowListener(new java.awt.event.WindowAdapter()
             {
                 @Override

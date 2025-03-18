@@ -13,14 +13,19 @@ import proyecto.modelo.*;
 public class PacientController
 {
 
-    private static int contadorPacientes = 1;
-    private ListaSL lsl = new ListaSL();
-
-    public boolean agregaPaciente(String nombrePaciente, int prioridad, int zona)
+    public static boolean agregaPaciente(String nombrePaciente, ListaSL lsl, int prioridad, int zona)
     {
-        Paciente p = new Paciente(contadorPacientes++, nombrePaciente, prioridad, zona);
-        Nodo n = new Nodo(p, String.valueOf(prioridad));
-        return lsl.inserta(n);
+        Paciente p = new Paciente(nombrePaciente, prioridad, zona);
+        String et = String.valueOf(prioridad);
+        Nodo nPaciente = new Nodo(p, et);
+        Nodo nLista = lsl.buscar(et);
+        ColaDinamica cd = (nLista == null) ? new ColaDinamica() : (ColaDinamica) nLista.getObj();
+        cd.inserta(nPaciente);
+        if (nLista == null)
+        {
+            lsl.inserta(new Nodo(cd, et));
+        }
+        return true;
     }
 
 }

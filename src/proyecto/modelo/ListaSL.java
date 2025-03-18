@@ -4,13 +4,16 @@
  */
 package proyecto.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Joabp
  */
-public class ListaSL
+public class ListaSL implements Serializable
 {
 
+    private static final long serialVersionUID = 1L;
     private Nodo r;
 
     public ListaSL(Nodo r)
@@ -123,5 +126,24 @@ public class ListaSL
             aux = aux.getSiguiente();
         }
         return eliminado;
+    }
+
+    public Nodo buscar(String et)
+    {
+        Nodo aux = r;
+        while (aux != null)
+        {
+            if (aux.getEtiqueta().equals(et))
+            {
+                return aux;
+            }
+            aux = aux.getSiguiente();
+        }
+        return null;
+    }
+
+    public boolean esVacio()
+    {
+        return r == null;
     }
 }

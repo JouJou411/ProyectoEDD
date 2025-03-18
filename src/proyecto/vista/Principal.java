@@ -5,22 +5,66 @@
 package proyecto.vista;
 
 import java.awt.*;
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import proyecto.modelo.*;
 
 /**
  *
  * @author Joabp
  */
-public class Principal extends javax.swing.JFrame {
+public class Principal extends javax.swing.JFrame
+{
+
+    private static ListaSL lsl;
 
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public Principal()
+    {
         initComponents();
         this.setLocationRelativeTo(null);
         ImageIcon icono = new ImageIcon("src/proyecto/iconos/Ambulancia.png");
         this.setIconImage(icono.getImage());
+        restoreList();
+        updateTable();
+    }
+
+    private void updateTable()
+    {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0);
+        Nodo nodoLista = lsl.getR();
+        while (nodoLista != null)
+        {
+            if (nodoLista.getObj() instanceof ColaDinamica cd)
+            {
+                Nodo nodoPaciente = cd.getF();
+                while (nodoPaciente != null)
+                {
+                    if (nodoPaciente.getObj() instanceof Paciente p)
+                    {
+                        Paciente paciente = (Paciente) nodoPaciente.getObj();
+                        modelo.addRow(new Object[]
+                        {
+                            paciente.getNoPaciente(), paciente.getNomPaciente(), paciente.getZona(), paciente.getPrioridad()
+                        });
+                    }
+                    nodoPaciente = nodoPaciente.getSiguiente();
+                }
+            }
+            nodoLista = nodoLista.getSiguiente();
+        }
+    }
+
+    private void restoreList()
+    {
+        lsl = (ListaSL) Archivo.cargar("src/proyecto/archivo/ListaPacientes.dat");
+        if (lsl == null)
+        {
+            lsl = new ListaSL();
+        }
     }
 
     /**
@@ -52,6 +96,13 @@ public class Principal extends javax.swing.JFrame {
         setBackground(new java.awt.Color(56, 142, 60));
         setLocation(new java.awt.Point(0, 0));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -190,39 +241,54 @@ public class Principal extends javax.swing.JFrame {
 
     private void jBtnRecepPacientesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRecepPacientesActionPerformed
     {//GEN-HEADEREND:event_jBtnRecepPacientesActionPerformed
-        FormularioPaciente fPaciente = new FormularioPaciente(this, rootPaneCheckingEnabled);
+        FormularioPaciente fPaciente = new FormularioPaciente(this, rootPaneCheckingEnabled, lsl);
         fPaciente.setVisible(true);
+        updateTable();
     }//GEN-LAST:event_jBtnRecepPacientesActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+    {//GEN-HEADEREND:event_formWindowClosing
+        Archivo.guardar(lsl, "src/proyecto/archivo/ListaPacientes.dat");
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
+        java.awt.EventQueue.invokeLater(() ->
+        {
             new Principal().setVisible(true);
         });
     }

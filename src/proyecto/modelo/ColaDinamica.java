@@ -4,13 +4,16 @@
  */
 package proyecto.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Joabp
  */
-public class ColaDinamica
+public class ColaDinamica implements Serializable
 {
 
+    private static final long serialVersionUID = 1L;
     private Nodo f;
     private Nodo a;
 

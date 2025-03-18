@@ -4,21 +4,26 @@
  */
 package proyecto.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Joabp
+ * @param <T>
  */
-public class Nodo<T>
+public class Nodo<T> implements Serializable
 {
 
+    private static final long serialVersionUID = 1L;
     private T obj;
     private String etiqueta;
-    private Nodo siguiente;
+    private Nodo<T> siguiente;
 
     public Nodo(T obj, String etiqueta)
     {
         this.obj = obj;
         this.etiqueta = etiqueta;
+        System.out.println("Tipo de obj: " + obj.getClass().getName()); // Imprime el tipo de obj
     }
 
     public String getEtiqueta()

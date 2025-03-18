@@ -7,6 +7,7 @@ package proyecto.modelo;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -58,18 +59,24 @@ public class Archivo
     public static Object cargar(String url)
     {
         Object obj = null;
-        try
+        try (FileInputStream fis = new FileInputStream(url); ObjectInputStream arch = new ObjectInputStream(fis))
         {
-            FileInputStream fis = new FileInputStream(url);
-            ObjectInputStream arch = new ObjectInputStream(fis);
             obj = arch.readObject();
-            arch.close();
         } catch (FileNotFoundException ex)
         {
-            System.out.println("No se encontro el archivo");
-        } catch (Exception err)
+            System.out.println("No se encontró el archivo: " + url);
+        } catch (ClassNotFoundException ex)
         {
-            System.out.println("Error..." + err.toString());
+            System.out.println("Clase no encontrada durante la deserialización: " + ex.getMessage());
+            ex.printStackTrace();
+        } catch (IOException ex)
+        {
+            System.out.println("Error de E/S durante la deserialización: " + ex.getMessage());
+            ex.printStackTrace();
+        } catch (Exception ex)
+        {
+            System.out.println("Error inesperado durante la deserialización: " + ex.getMessage());
+            ex.printStackTrace();
         }
         return obj;
     }

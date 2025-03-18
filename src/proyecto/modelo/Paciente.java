@@ -4,21 +4,24 @@
  */
 package proyecto.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jou
  */
-public class Paciente
+public class Paciente implements Serializable
 {
 
+    private static long serialVersionUID = 1L;
     private int noPaciente;
     private String nomPaciente;
     private int prioridad;//0 a 10
     private int zona;// 1 a 10
 
-    public Paciente(int noPaciente, String nomPaciente, int prioridad, int zona)
+    public Paciente(String nomPaciente, int prioridad, int zona)
     {
-        this.noPaciente = noPaciente;
+        noPaciente = (int) serialVersionUID++;
         this.nomPaciente = nomPaciente;
         this.prioridad = prioridad;
         this.zona = zona;
