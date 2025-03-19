@@ -54,15 +54,27 @@ public class PacientController
         }
     }
 
-    public static boolean movePatientPriority(ListaSL lsl, String et, String nvoEt)
+    public static boolean movePatientPriority(ListaSL lsl, String et)
     {
+        Nodo nLista = lsl.elimina(et);
+        if (nLista == null) {
+            return false;
+        }
+        ColaDinamica cd = (ColaDinamica) nLista.getObj();
+        while (cd.getF() != null) {
+            cd.elimina();
+        }
+        return true;
+    }
+    
+    public static boolean exceptionPacient(ListaSL lsl, String et){
         Nodo nLista = lsl.elimina(et);
         if (nLista == null)
         {
             return false;
         }
         ColaDinamica cd = (ColaDinamica) nLista.getObj();
-        Nodo nAuxLsl = lsl.elimina(nvoEt);
+        Nodo nAuxLsl = lsl.elimina("0");
         ColaDinamica destinoCD;
         if (nAuxLsl == null)
         {
@@ -71,16 +83,16 @@ public class PacientController
         {
             destinoCD = (ColaDinamica) nAuxLsl.getObj();
         }
-        int nuevaPrioridad = Integer.parseInt(nvoEt);
+        int nuevaPrioridad = Integer.parseInt("0");
         while (cd.getF() != null)
         {
             Nodo nPaciente = cd.elimina();
             Paciente p = (Paciente) nPaciente.getObj();
             p.setPrioridad(nuevaPrioridad);
-            nPaciente.setEtiqueta(nvoEt);
+            nPaciente.setEtiqueta("0");
             destinoCD.inserta(nPaciente);
         }
-        lsl.inserta(new Nodo(destinoCD, nvoEt));
+        lsl.inserta(new Nodo(destinoCD, "0"));
         return true;
     }
 }

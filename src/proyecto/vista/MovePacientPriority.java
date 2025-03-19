@@ -14,8 +14,7 @@ import proyecto.modelo.Nodo;
  *
  * @author Jou
  */
-public class MovePacientPriority extends javax.swing.JDialog
-{
+public class MovePacientPriority extends javax.swing.JDialog {
 
     private static ListaSL lsl;
 
@@ -25,8 +24,7 @@ public class MovePacientPriority extends javax.swing.JDialog
      * @param parent
      * @param modal
      */
-    public MovePacientPriority(java.awt.Frame parent, boolean modal, ListaSL lsl)
-    {
+    public MovePacientPriority(java.awt.Frame parent, boolean modal, ListaSL lsl) {
         super(parent, modal);
         MovePacientPriority.lsl = lsl;
         initComponents();
@@ -36,13 +34,11 @@ public class MovePacientPriority extends javax.swing.JDialog
         addItemsJComboBox();
     }
 
-    public static ListaSL getLsl()
-    {
+    public static ListaSL getLsl() {
         return lsl;
     }
 
-    public void setLsl(ListaSL lsl)
-    {
+    public void setLsl(ListaSL lsl) {
         PacientForm.lsl = lsl;
     }
 
@@ -53,22 +49,18 @@ public class MovePacientPriority extends javax.swing.JDialog
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jComboBoxPrioPacientMove = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBoxNewPrioPacient = new javax.swing.JComboBox<>();
         jBtnGuardar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mover pacientes por prioridad");
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -86,23 +78,13 @@ public class MovePacientPriority extends javax.swing.JDialog
         jLabel2.setText("Seleciona la prioridad de los pacientes a mover");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Seleciona la nueva prioridad de los pacientes");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
-
-        jComboBoxNewPrioPacient.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-        jPanel1.add(jComboBoxNewPrioPacient, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, -1, -1));
-
         jBtnGuardar.setBackground(new java.awt.Color(56, 142, 60));
         jBtnGuardar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jBtnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         jBtnGuardar.setText("Guardar");
         jBtnGuardar.setPreferredSize(new java.awt.Dimension(95, 25));
-        jBtnGuardar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnGuardarActionPerformed(evt);
             }
         });
@@ -113,16 +95,23 @@ public class MovePacientPriority extends javax.swing.JDialog
         jBtnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         jBtnCancelar.setText("Cancelar");
         jBtnCancelar.setPreferredSize(new java.awt.Dimension(95, 25));
-        jBtnCancelar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCancelarActionPerformed(evt);
             }
         });
         jPanel1.add(jBtnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 400));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -135,24 +124,18 @@ public class MovePacientPriority extends javax.swing.JDialog
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnGuardarActionPerformed
     {//GEN-HEADEREND:event_jBtnGuardarActionPerformed
         String et = (String) jComboBoxPrioPacientMove.getSelectedItem();
-        String nvoEt = (String) jComboBoxNewPrioPacient.getSelectedItem();
-        if (PacientController.movePatientPriority(lsl, et, nvoEt))
-        {
-            JOptionPane.showMessageDialog(this, "Se ha cambiado con exito la prioridad de los pacientes");
-        } else
-        {
-            JOptionPane.showMessageDialog(this, "No se pudo cambiar la prioridad de los pacientes");
+        if (PacientController.movePatientPriority(lsl, et)) {
+            JOptionPane.showMessageDialog(this, "Se movieron los pacientes con prioridad (" + et + ") a otro hospital");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo cambiar los pacientes con prioridad (" + et + " a otro hospital");
         }
         this.dispose();
     }//GEN-LAST:event_jBtnGuardarActionPerformed
 
-    private void addItemsJComboBox()
-    {
+    private void addItemsJComboBox() {
         Nodo nLista = lsl.getR();
-        if (nLista != null)
-        {
-            while (nLista != null)
-            {
+        if (nLista != null) {
+            while (nLista != null) {
                 jComboBoxPrioPacientMove.addItem(nLista.getEtiqueta());
                 nLista = nLista.getSiguiente();
             }
@@ -162,47 +145,37 @@ public class MovePacientPriority extends javax.swing.JDialog
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MovePacientPriority.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(MovePacientPriority.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(MovePacientPriority.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MovePacientPriority.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(() ->
-        {
+        java.awt.EventQueue.invokeLater(()
+                -> {
             MovePacientPriority dialog = new MovePacientPriority(new javax.swing.JFrame(), true, lsl);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter()
-            {
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
-                public void windowClosing(java.awt.event.WindowEvent e)
-                {
+                public void windowClosing(java.awt.event.WindowEvent e) {
                     System.exit(0);
                 }
             });
@@ -213,11 +186,9 @@ public class MovePacientPriority extends javax.swing.JDialog
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnGuardar;
-    private javax.swing.JComboBox<String> jComboBoxNewPrioPacient;
     private javax.swing.JComboBox<String> jComboBoxPrioPacientMove;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
