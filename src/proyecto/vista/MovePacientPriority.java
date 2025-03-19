@@ -139,7 +139,6 @@ public class MovePacientPriority extends javax.swing.JDialog
         if (PacientController.movePatientPriority(lsl, et, nvoEt))
         {
             JOptionPane.showMessageDialog(this, "Se ha cambiado con exito la prioridad de los pacientes");
-            lsl = PacientController.getListaActualizada(lsl, et, nvoEt);
         } else
         {
             JOptionPane.showMessageDialog(this, "No se pudo cambiar la prioridad de los pacientes");

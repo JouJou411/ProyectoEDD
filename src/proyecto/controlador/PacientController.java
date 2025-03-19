@@ -35,11 +35,9 @@ public class PacientController
         {
             Nodo nLista = lsl.getR();
             ColaDinamica cd = (ColaDinamica) nLista.getObj();
-
             if (cd.getF() != null)
             {
                 cd.elimina();
-
                 if (cd.getF() == null)
                 {
                     lsl.elimina(nLista.getEtiqueta());
@@ -63,10 +61,8 @@ public class PacientController
         {
             return false;
         }
-
         ColaDinamica cd = (ColaDinamica) nLista.getObj();
         Nodo nAuxLsl = lsl.elimina(nvoEt);
-
         ColaDinamica destinoCD;
         if (nAuxLsl == null)
         {
@@ -75,9 +71,7 @@ public class PacientController
         {
             destinoCD = (ColaDinamica) nAuxLsl.getObj();
         }
-
         int nuevaPrioridad = Integer.parseInt(nvoEt);
-
         while (cd.getF() != null)
         {
             Nodo nPaciente = cd.elimina();
@@ -86,13 +80,7 @@ public class PacientController
             nPaciente.setEtiqueta(nvoEt);
             destinoCD.inserta(nPaciente);
         }
-
         lsl.inserta(new Nodo(destinoCD, nvoEt));
         return true;
-    }
-
-    public static ListaSL getListaActualizada(ListaSL lsl, String et, String nvoEt)
-    {
-        return lsl;
     }
 }
