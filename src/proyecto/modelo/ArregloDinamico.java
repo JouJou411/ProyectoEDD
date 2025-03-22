@@ -11,7 +11,17 @@ package proyecto.modelo;
 public class ArregloDinamico
 {
 
-    Object arr[] = null;
+    private Object arr[] = null;
+
+    public Object[] getArr()
+    {
+        return arr;
+    }
+
+    public void setArr(Object[] arr)
+    {
+        this.arr = arr;
+    }
 
     public void inserta(Object obj)
     {
@@ -90,5 +100,10 @@ public class ArregloDinamico
             }
         }
         return -1;
+    }
+
+    public int length()
+    {
+        return arr.length;
     }
 }

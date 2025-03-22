@@ -57,24 +57,27 @@ public class PacientController
     public static boolean movePatientPriority(ListaSL lsl, String et)
     {
         Nodo nLista = lsl.elimina(et);
-        if (nLista == null) {
+        if (nLista == null)
+        {
             return false;
         }
         ColaDinamica cd = (ColaDinamica) nLista.getObj();
-        while (cd.getF() != null) {
+        while (cd.getF() != null)
+        {
             cd.elimina();
         }
         return true;
     }
-    
-    public static boolean exceptionPacient(ListaSL lsl, String et){
+
+    public static boolean exceptionPacient(ListaSL lsl, String et)
+    {
         Nodo nLista = lsl.elimina(et);
         if (nLista == null)
         {
             return false;
         }
         ColaDinamica cd = (ColaDinamica) nLista.getObj();
-        Nodo nAuxLsl = lsl.elimina("0");
+        Nodo nAuxLsl = lsl.elimina(et);
         ColaDinamica destinoCD;
         if (nAuxLsl == null)
         {
@@ -83,7 +86,7 @@ public class PacientController
         {
             destinoCD = (ColaDinamica) nAuxLsl.getObj();
         }
-        int nuevaPrioridad = Integer.parseInt("0");
+        int nuevaPrioridad = 0;
         while (cd.getF() != null)
         {
             Nodo nPaciente = cd.elimina();
@@ -94,5 +97,63 @@ public class PacientController
         }
         lsl.inserta(new Nodo(destinoCD, "0"));
         return true;
+    }
+
+    public static boolean orderPacientZonePriority(ListaSL lsl, String et)
+    {
+        Nodo nLista = lsl.elimina(et);
+        if (nLista == null)
+        {
+            return false;
+        } else
+        {
+            ColaDinamica cd = (ColaDinamica) nLista.getObj();
+            ArregloDinamico ad = new ArregloDinamico();
+            while (cd.getF() != null)
+            {
+                Nodo nPacient = cd.elimina();
+                ad.inserta(nPacient.getObj());
+            }
+            cd = order(ad);
+            lsl.inserta(new Nodo(cd, et));
+            return true;
+        }
+    }
+
+    private static ColaDinamica order(ArregloDinamico ad)
+    {
+        ColaDinamica cd = new ColaDinamica();
+        Pilas<Paciente> pila1 = new Pilas<>(new Paciente[ad.length()]);
+        Pilas<Paciente> pila2 = new Pilas<>(new Paciente[ad.length()]);
+        Colas<Paciente> cola = new Colas<>(new Paciente[ad.length()]);
+
+        for (Object obj : ad.getArr())
+        {
+            if (obj instanceof Paciente paciente)
+            {
+                cola.inserta(paciente);
+            }
+        }
+        while (!cola.vacia())
+        {
+            Paciente temp = cola.elimina();
+            while (!pila1.vacia() && pila1.cima().getZona() < temp.getZona())
+            {
+                pila2.inserta(pila1.elimina());
+            }
+            pila1.inserta(temp);
+
+            while (!pila2.vacia())
+            {
+                pila1.inserta(pila2.elimina());
+            }
+        }
+        while (!pila1.vacia())
+        {
+            Paciente p = pila1.elimina();
+            String et = String.valueOf(p.getPrioridad());
+            cd.inserta(new Nodo(p, et));
+        }
+        return cd;
     }
 }

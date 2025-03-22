@@ -237,6 +237,9 @@
           <Properties>
             <Property name="label" type="java.lang.String" value="&lt;html&gt;Ordenar por zona&lt;br&gt;por prioridad&lt;/html&gt;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnOrdenarZonaPrioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBtnMoverPacientePrio">
           <Properties>
@@ -250,6 +253,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Excepcion de&lt;br&gt;Pacientes&lt;/html&gt;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnExcepcionPacienteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>

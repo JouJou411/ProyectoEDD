@@ -44,29 +44,31 @@ public class MainFrame extends javax.swing.JFrame
 
     private void updateTable()
     {
-        System.out.println("updateTable() llamado");
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0);
-        Nodo nodoLista = lsl.getR();
-        while (nodoLista != null)
+        if (lsl.getR() != null)
         {
-            if (nodoLista.getObj() instanceof ColaDinamica cd)
+            Nodo nodoLista = lsl.getR();
+            while (nodoLista != null)
             {
-                Nodo nodoPaciente = cd.getF();
-                while (nodoPaciente != null)
+                if (nodoLista.getObj() instanceof ColaDinamica cd)
                 {
-                    if (nodoPaciente.getObj() instanceof Paciente p)
+                    Nodo nodoPaciente = cd.getF();
+                    while (nodoPaciente != null)
                     {
-                        Paciente paciente = (Paciente) nodoPaciente.getObj();
-                        modelo.addRow(new Object[]
+                        if (nodoPaciente.getObj() instanceof Paciente p)
                         {
-                            paciente.getNoPaciente(), paciente.getNomPaciente(), paciente.getZona(), paciente.getPrioridad()
-                        });
+                            Paciente paciente = (Paciente) nodoPaciente.getObj();
+                            modelo.addRow(new Object[]
+                            {
+                                paciente.getNoPaciente(), paciente.getNomPaciente(), paciente.getZona(), paciente.getPrioridad()
+                            });
+                        }
+                        nodoPaciente = nodoPaciente.getSiguiente();
                     }
-                    nodoPaciente = nodoPaciente.getSiguiente();
                 }
+                nodoLista = nodoLista.getSiguiente();
             }
-            nodoLista = nodoLista.getSiguiente();
         }
     }
 
@@ -209,6 +211,13 @@ public class MainFrame extends javax.swing.JFrame
         });
 
         jBtnOrdenarZonaPrio.setLabel("<html>Ordenar por zona<br>por prioridad</html>");
+        jBtnOrdenarZonaPrio.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jBtnOrdenarZonaPrioActionPerformed(evt);
+            }
+        });
 
         jBtnMoverPacientePrio.setText("<html>Mover paciente<br>por prioridad</html>");
         jBtnMoverPacientePrio.addActionListener(new java.awt.event.ActionListener()
@@ -220,6 +229,13 @@ public class MainFrame extends javax.swing.JFrame
         });
 
         jBtnExcepcionPaciente.setText("<html>Excepcion de<br>Pacientes</html>");
+        jBtnExcepcionPaciente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jBtnExcepcionPacienteActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto/iconos/Ambulancia.png"))); // NOI18N
 
@@ -275,6 +291,7 @@ public class MainFrame extends javax.swing.JFrame
     private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
     {//GEN-HEADEREND:event_formWindowClosing
         Archivo.guardar(lsl, "src/proyecto/archivo/ListaPacientes.dat");
+        GestorNoPacientes.guardarNumeroFinal();
     }//GEN-LAST:event_formWindowClosing
 
     private void jBtnAtencionPacienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnAtencionPacienteActionPerformed
@@ -315,6 +332,48 @@ public class MainFrame extends javax.swing.JFrame
             JOptionPane.showMessageDialog(this, "No hay pacientes existentes");
         }
     }//GEN-LAST:event_jBtnMoverPacientePrioActionPerformed
+
+    private void jBtnExcepcionPacienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnExcepcionPacienteActionPerformed
+    {//GEN-HEADEREND:event_jBtnExcepcionPacienteActionPerformed
+        if (lsl.getR() != null)
+        {
+            ExceptPacient mpp = new ExceptPacient(this, rootPaneCheckingEnabled, lsl);
+            mpp.addWindowListener(new java.awt.event.WindowAdapter()
+            {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent)
+                {
+                    lsl = ExceptPacient.getLsl();
+                    updateTable();
+                }
+            });
+            mpp.setVisible(true);
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "No hay pacientes existentes");
+        }
+    }//GEN-LAST:event_jBtnExcepcionPacienteActionPerformed
+
+    private void jBtnOrdenarZonaPrioActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnOrdenarZonaPrioActionPerformed
+    {//GEN-HEADEREND:event_jBtnOrdenarZonaPrioActionPerformed
+        if (lsl.getR() != null)
+        {
+            OrderZonePriority mpp = new OrderZonePriority(this, rootPaneCheckingEnabled, lsl);
+            mpp.addWindowListener(new java.awt.event.WindowAdapter()
+            {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent)
+                {
+                    lsl = OrderZonePriority.getLsl();
+                    updateTable();
+                }
+            });
+            mpp.setVisible(true);
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "No hay pacientes existentes");
+        }
+    }//GEN-LAST:event_jBtnOrdenarZonaPrioActionPerformed
 
     /**
      * @param args the command line arguments

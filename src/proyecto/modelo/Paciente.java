@@ -21,7 +21,7 @@ public class Paciente implements Serializable
 
     public Paciente(String nomPaciente, int prioridad, int zona)
     {
-        noPaciente = (int) serialVersionUID++;
+        this.noPaciente = GestorNoPacientes.obtenerNuevoNumero();
         this.nomPaciente = nomPaciente;
         this.prioridad = prioridad;
         this.zona = zona;
