@@ -258,7 +258,8 @@ public class PacientForm extends javax.swing.JDialog
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(() ->
+        java.awt.EventQueue.invokeLater(()
+                ->
         {
             PacientForm dialog = new PacientForm(new javax.swing.JFrame(), true, lsl);
             dialog.addWindowListener(new java.awt.event.WindowAdapter()

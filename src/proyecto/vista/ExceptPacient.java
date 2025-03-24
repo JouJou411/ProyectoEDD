@@ -135,7 +135,7 @@ public class ExceptPacient extends javax.swing.JDialog
         String et = (String) jComboBoxPrioPacientMove.getSelectedItem();
         if (PacientController.exceptionPacient(lsl, et))
         {
-            JOptionPane.showMessageDialog(this, "Se movieron los pacientes con prioridad (" + et + ") a prioridad 0");
+            JOptionPane.showMessageDialog(this, "Se movieron los pacientes con prioridad (" + et + ") a prioridad (0)");
         } else
         {
             JOptionPane.showMessageDialog(this, "No se pudo cambiar los pacientes con prioridad (" + et + " a otro hospital");

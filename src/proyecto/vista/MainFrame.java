@@ -4,7 +4,6 @@
  */
 package proyecto.vista;
 
-import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import proyecto.modelo.*;
@@ -412,7 +411,8 @@ public class MainFrame extends javax.swing.JFrame
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() ->
+        java.awt.EventQueue.invokeLater(()
+                ->
         {
             new MainFrame().setVisible(true);
         });

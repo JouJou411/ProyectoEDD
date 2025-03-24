@@ -15,7 +15,6 @@ public class PacientController
 
     public static boolean agregaPaciente(String nombrePaciente, ListaSL lsl, int prioridad, int zona)
     {
-        System.out.println("agregaPaciente() llamado");
         Paciente p = new Paciente(nombrePaciente, prioridad, zona);
         String et = String.valueOf(prioridad);
         Nodo nPaciente = new Nodo(p, et);

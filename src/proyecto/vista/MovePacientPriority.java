@@ -14,7 +14,8 @@ import proyecto.modelo.Nodo;
  *
  * @author Jou
  */
-public class MovePacientPriority extends javax.swing.JDialog {
+public class MovePacientPriority extends javax.swing.JDialog
+{
 
     private static ListaSL lsl;
 
@@ -24,7 +25,8 @@ public class MovePacientPriority extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public MovePacientPriority(java.awt.Frame parent, boolean modal, ListaSL lsl) {
+    public MovePacientPriority(java.awt.Frame parent, boolean modal, ListaSL lsl)
+    {
         super(parent, modal);
         MovePacientPriority.lsl = lsl;
         initComponents();
@@ -34,11 +36,13 @@ public class MovePacientPriority extends javax.swing.JDialog {
         addItemsJComboBox();
     }
 
-    public static ListaSL getLsl() {
+    public static ListaSL getLsl()
+    {
         return lsl;
     }
 
-    public void setLsl(ListaSL lsl) {
+    public void setLsl(ListaSL lsl)
+    {
         PacientForm.lsl = lsl;
     }
 
@@ -124,18 +128,23 @@ public class MovePacientPriority extends javax.swing.JDialog {
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnGuardarActionPerformed
     {//GEN-HEADEREND:event_jBtnGuardarActionPerformed
         String et = (String) jComboBoxPrioPacientMove.getSelectedItem();
-        if (PacientController.movePatientPriority(lsl, et)) {
+        if (PacientController.movePatientPriority(lsl, et))
+        {
             JOptionPane.showMessageDialog(this, "Se movieron los pacientes con prioridad (" + et + ") a otro hospital");
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(this, "No se pudo cambiar los pacientes con prioridad (" + et + " a otro hospital");
         }
         this.dispose();
     }//GEN-LAST:event_jBtnGuardarActionPerformed
 
-    private void addItemsJComboBox() {
+    private void addItemsJComboBox()
+    {
         Nodo nLista = lsl.getR();
-        if (nLista != null) {
-            while (nLista != null) {
+        if (nLista != null)
+        {
+            while (nLista != null)
+            {
                 jComboBoxPrioPacientMove.addItem(nLista.getEtiqueta());
                 nLista = nLista.getSiguiente();
             }
@@ -145,37 +154,48 @@ public class MovePacientPriority extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(MovePacientPriority.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(MovePacientPriority.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(MovePacientPriority.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(MovePacientPriority.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(()
-                -> {
+                ->
+        {
             MovePacientPriority dialog = new MovePacientPriority(new javax.swing.JFrame(), true, lsl);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            dialog.addWindowListener(new java.awt.event.WindowAdapter()
+            {
                 @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
+                public void windowClosing(java.awt.event.WindowEvent e)
+                {
                     System.exit(0);
                 }
             });

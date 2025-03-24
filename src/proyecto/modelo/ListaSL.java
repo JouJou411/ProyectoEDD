@@ -35,23 +35,33 @@ public class ListaSL implements Serializable
         this.r = r;
     }
 
-    public boolean inserta(Nodo n) {
-        if (n == null) {
+    public boolean inserta(Nodo n)
+    {
+        if (n == null)
+        {
             System.out.println("No se puede insertar un nodo nulo.");
             return false;
-        } else {
-            if (r == null) {
+        } else
+        {
+            if (r == null)
+            {
                 r = n;
-            } else {
-                if (esNumerico(n.getEtiqueta()) && esNumerico(r.getEtiqueta())) {
-                    if (Integer.parseInt(r.getEtiqueta()) > Integer.parseInt(n.getEtiqueta())) {
+            } else
+            {
+                if (esNumerico(n.getEtiqueta()) && esNumerico(r.getEtiqueta()))
+                {
+                    if (Integer.parseInt(r.getEtiqueta()) > Integer.parseInt(n.getEtiqueta()))
+                    {
                         n.setSiguiente(r);
                         r = n;
-                    } else {
+                    } else
+                    {
                         Nodo aux = r;
-                        while (aux.getSiguiente() != null) {
-                            if (esNumerico(aux.getSiguiente().getEtiqueta()) &&
-                                    Integer.parseInt(aux.getSiguiente().getEtiqueta()) > Integer.parseInt(n.getEtiqueta())) {
+                        while (aux.getSiguiente() != null)
+                        {
+                            if (esNumerico(aux.getSiguiente().getEtiqueta())
+                                    && Integer.parseInt(aux.getSiguiente().getEtiqueta()) > Integer.parseInt(n.getEtiqueta()))
+                            {
                                 n.setSiguiente(aux.getSiguiente());
                                 aux.setSiguiente(n);
                                 return true;
@@ -60,14 +70,19 @@ public class ListaSL implements Serializable
                         }
                         aux.setSiguiente(n);
                     }
-                } else {
-                    if (r.getEtiqueta().compareTo(n.getEtiqueta()) > 0) {
+                } else
+                {
+                    if (r.getEtiqueta().compareTo(n.getEtiqueta()) > 0)
+                    {
                         n.setSiguiente(r);
                         r = n;
-                    } else {
+                    } else
+                    {
                         Nodo aux = r;
-                        while (aux.getSiguiente() != null) {
-                            if (aux.getSiguiente().getEtiqueta().compareTo(n.getEtiqueta()) > 0) {
+                        while (aux.getSiguiente() != null)
+                        {
+                            if (aux.getSiguiente().getEtiqueta().compareTo(n.getEtiqueta()) > 0)
+                            {
                                 n.setSiguiente(aux.getSiguiente());
                                 aux.setSiguiente(n);
                                 return true;

@@ -4,7 +4,6 @@
  */
 package proyecto.modelo;
 
-import java.io.*;
 
 /**
  *
@@ -19,7 +18,7 @@ public class GestorNoPacientes
     private static int cargarUltimoNumero()
     {
         Integer numero = (Integer) Archivo.cargar(FILE_PATH);
-        return (numero != null) ? numero : 0; 
+        return (numero != null) ? numero : 0;
     }
 
     public static int obtenerNuevoNumero()
